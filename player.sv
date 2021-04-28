@@ -25,12 +25,11 @@ module  player ( input Reset, frame_clk,
     parameter [9:0] Ball_X_Max=639;     // Rightmost point on the X axis
     parameter [9:0] Ball_Y_Min=0;       // Topmost point on the Y axis
     parameter [9:0] Ball_Y_Max=479;     // Bottommost point on the Y axis
-    parameter [9:0] Ball_X_Step=1;      // Step size on the X axis
-    parameter [9:0] Ball_Y_Step=1;      // Step size on the Y axis
-	 
-	 parameter [9:0] Player_Start_Y  = 420;
+    parameter [9:0] Ball_X_Step=4;      // Step size on the X axis
+    parameter [9:0] Ball_Y_Step=0;      // Step size on the Y axis
+	 parameter [9:0] Player_Start_Y  = 440;
 
-    assign Ball_Size = 4;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
+    assign Ball_Size = 40;  // assigns the value 4 as a 10-digit binary number, ie "0000000100"
    
     always_ff @ (posedge Reset or posedge frame_clk )
     begin: Move_Ball
@@ -61,12 +60,26 @@ module  player ( input Reset, frame_clk,
 								Ball_X_Motion <= -1;//A
 								Ball_Y_Motion<= 0;
 							  end
-					        
+							  
+					8'h50 : begin
+
+								Ball_X_Motion <= -1;// LEFT ARROW
+								Ball_Y_Motion<= 0;
+							  end    
+							  
 					8'h07 : begin
 								
 					        Ball_X_Motion <= 1;//D
 							  Ball_Y_Motion <= 0;
 							  end  
+					
+					8'h4f : begin
+								
+					        Ball_X_Motion <= 1;// RIGHT ARROW
+							  Ball_Y_Motion <= 0;
+							  end  
+					
+					
 					default: 
 					begin
 						Ball_X_Motion <= 0;
@@ -77,18 +90,6 @@ module  player ( input Reset, frame_clk,
 				 
 				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
 				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
-			
-			
-	  /**************************************************************************************
-	    ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!
-		 Hidden Question #2/2:
-          Note that Ball_Y_Motion in the above statement may have been changed at the same clock edge
-          that is causing the assignment of Ball_Y_pos.  Will the new value of Ball_Y_Motion be used,
-          or the old?  How will this impact behavior of the ball during a bounce, and how might that 
-          interact with a response to a keypress?  Can you fix it?  Give an answer in your Post-Lab.
-      **************************************************************************************/
-      
-			
 		end  
     end
        
