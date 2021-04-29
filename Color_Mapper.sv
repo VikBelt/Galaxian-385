@@ -17,7 +17,6 @@ module  color_mapper ( input logic Clk, Reset, frame_clk, input logic [7:0] keyc
                        output logic [7:0]  Red, Green, Blue );
     
     logic ball_on;
-	  
 	 //alien row_position
 	 parameter [9:0] alien_row_1 = 50;
 	 parameter [9:0] alien_row_2 = 100;
@@ -118,40 +117,40 @@ module  color_mapper ( input logic Clk, Reset, frame_clk, input logic [7:0] keyc
 	 
 	 //Declare the Aliens
 	 simple_alien alien_1 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_1_StX),.alienStY(alien_row_1),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien1_hit),.AlienX(Alien1X),.AlienY(Alien1Y),.AlienS(Alien1S));
+		.motion_code(motion_code),.visible(alien1_hit),.AlienX(Alien1X),.AlienY(Alien1Y),.AlienS(Alien1S));
 		
 	 simple_alien alien_2 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_2_StX),.alienStY(alien_row_1),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien2_hit),.AlienX(Alien2X),.AlienY(Alien2Y),.AlienS(Alien2S));
+		.motion_code(motion_code),.visible(alien2_hit),.AlienX(Alien2X),.AlienY(Alien2Y),.AlienS(Alien2S));
 		
 	 simple_alien alien_3 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_3_StX),.alienStY(alien_row_1),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien3_hit),.AlienX(Alien3X),.AlienY(Alien3Y),.AlienS(Alien3S));
+		.motion_code(motion_code),.visible(alien3_hit),.AlienX(Alien3X),.AlienY(Alien3Y),.AlienS(Alien3S));
 		
 	 simple_alien alien_4 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_4_StX),.alienStY(alien_row_1),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien4_hit),.AlienX(Alien4X),.AlienY(Alien4Y),.AlienS(Alien4S));
+		.motion_code(motion_code),.visible(alien4_hit),.AlienX(Alien4X),.AlienY(Alien4Y),.AlienS(Alien4S));
 		
 	 simple_alien alien_5 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_5_StX),.alienStY(alien_row_1),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien5_hit),.AlienX(Alien5X),.AlienY(Alien5Y),.AlienS(Alien5S));
+		.motion_code(motion_code),.visible(alien5_hit),.AlienX(Alien5X),.AlienY(Alien5Y),.AlienS(Alien5S));
 	 
 	 simple_alien alien_6 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_6_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien6_hit),.AlienX(Alien6X),.AlienY(Alien6Y),.AlienS(Alien6S));
+		.motion_code(motion_code),.visible(alien6_hit),.AlienX(Alien6X),.AlienY(Alien6Y),.AlienS(Alien6S));
 	 
 	 simple_alien alien_7 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_7_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien7_hit),.AlienX(Alien7X),.AlienY(Alien7Y),.AlienS(Alien7S));
+		.motion_code(motion_code),.visible(alien7_hit),.AlienX(Alien7X),.AlienY(Alien7Y),.AlienS(Alien7S));
 	 
 	 simple_alien alien_8 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_8_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien8_hit),.AlienX(Alien8X),.AlienY(Alien8Y),.AlienS(Alien8S));
+		.motion_code(motion_code),.visible(alien8_hit),.AlienX(Alien8X),.AlienY(Alien8Y),.AlienS(Alien8S));
 	 
 	 simple_alien alien_9 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_9_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien9_hit),.AlienX(Alien9X),.AlienY(Alien9Y),.AlienS(Alien9S));
+		.motion_code(motion_code),.visible(alien9_hit),.AlienX(Alien9X),.AlienY(Alien9Y),.AlienS(Alien9S));
 	 
 	 simple_alien alien_10 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_10_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien10_hit),.AlienX(Alien10X),.AlienY(Alien10Y),.AlienS(Alien10S));
+		.motion_code(motion_code),.visible(alien10_hit),.AlienX(Alien10X),.AlienY(Alien10Y),.AlienS(Alien10S));
 	 
 	 simple_alien alien_11 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_11_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien11_hit),.AlienX(Alien11X),.AlienY(Alien11Y),.AlienS(Alien11S));
+		.motion_code(motion_code),.visible(alien11_hit),.AlienX(Alien11X),.AlienY(Alien11Y),.AlienS(Alien11S));
 	 
 	 simple_alien alien_12 (.Reset(Reset),.frame_clk(frame_clk),.alienStX(alien_12_StX),.alienStY(alien_row_2),.PlayerMissileX(MissileX), .PlayerMissileY(MissileY), .PlayerMissileS(MissileS),
-		.visible(alien12_hit),.AlienX(Alien12X),.AlienY(Alien12Y),.AlienS(Alien12S));
+		.motion_code(motion_code),.visible(alien12_hit),.AlienX(Alien12X),.AlienY(Alien12Y),.AlienS(Alien12S));
 	 
 	 //Ball params
     int DistX, DistY, Size;
@@ -197,7 +196,24 @@ module  color_mapper ( input logic Clk, Reset, frame_clk, input logic [7:0] keyc
 	 assign DistX = DrawX - BallX;
     assign DistY = DrawY - BallY;
     assign Size = Ball_size;
-	  
+	 
+	 logic motion_code;
+	 //used to make ships go side to side
+	 always_ff @ (posedge Reset or posedge frame_clk )
+	 begin: Move_Alien_Row
+		if(Reset)
+			motion_code <= 0;
+		
+		else	
+		begin
+			if ( (Alien12X + Alien12S) >= 620 )  // Right Most Alien Goes to far to the right
+				motion_code <= 1;
+				
+			else if ((Alien6X - Alien6S) <= 20) //Left Most Alien Goes too far left
+				motion_code <= 0;
+		end
+	 end
+	 
 	 always_comb
 	 //ship
 	 begin:Ball_on_proj

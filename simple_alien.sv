@@ -1,7 +1,11 @@
 
 
-module  simple_alien ( input Reset, frame_clk, input [9:0] alienStX, alienStY, 
-								PlayerMissileX, PlayerMissileY, PlayerMissileS, output visible, output [9:0]  AlienX, AlienY, AlienS);
+module  simple_alien ( 
+	input Reset, frame_clk, 
+	input [9:0] alienStX, alienStY, PlayerMissileX, PlayerMissileY, PlayerMissileS, 
+	input motion_code,
+	output visible, output [9:0]  AlienX, AlienY, AlienS
+);
     
     parameter [9:0] Ball_X_Min=0;       // Leftmost point on the X axis
     parameter [9:0] Ball_X_Max=639;     // Rightmost point on the X axis
@@ -38,18 +42,12 @@ module  simple_alien ( input Reset, frame_clk, input [9:0] alienStX, alienStY,
         else 
         begin 
 				 
-				 if ( (Ball_X_Pos + Alien_Size) >= Ball_X_Max )  // Ball is at the Right edge, BOUNCE!
-					  Ball_X_Motion <= (~ (Ball_X_Step) + 1'b1);  // 2's complement.
+				 if (motion_code == 0)  // Ball is at the Right edge, BOUNCE!
+					  Ball_X_Motion <= 1;  // 2's complement.
 					  
-				 else if ( (Ball_X_Pos - Alien_Size) <= Ball_X_Min )  // Ball is at the Left edge, BOUNCE!
-					  Ball_X_Motion <= Ball_X_Step;
+				 else if (motion_code == 1)  // Ball is at the Left edge, BOUNCE!
+					  Ball_X_Motion <= -1;
 					  
-				 else  
-				 begin
-					Ball_X_Motion <= 0;
-					Ball_Y_Motion <= 0;
-				 end
-			
 				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
 				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
 		end  
