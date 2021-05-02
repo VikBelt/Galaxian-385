@@ -55,11 +55,7 @@ module lab62 (
 
 );
 
-
-
-
 logic Reset_h, vssig, blank, sync, VGA_Clk;
-
 
 //=======================================================
 //  REG/WIRE declarations
@@ -171,7 +167,7 @@ vga_controller VGAC (
 	.DrawY(drawysig)
 );
 
-ball BALL (
+player SHIP (
 	.Reset(Reset_h),
 	.frame_clk(VGA_VS),
 	.keycode(keycode),
@@ -181,14 +177,366 @@ ball BALL (
 );
 
 color_mapper CMAP (
+	.Clk(MAX10_CLK1_50),
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.keycode(keycode),
 	.BallX(ballxsig),
 	.BallY(ballysig),
 	.DrawX(drawxsig),
 	.DrawY(drawysig),
 	.Ball_size(ballsizesig),
+	.Alien1X(Alien1X), 
+	.Alien1Y(Alien1Y), 
+	.Alien1S(Alien1S),
+	.Alien2X(Alien2X), 
+	.Alien2Y(Alien2Y),
+	.Alien2S(Alien2S),
+   .Alien3X(Alien3X), 
+	.Alien3Y(Alien3Y),
+	.Alien3S(Alien3S),
+	.Alien4X(Alien4X), 
+	.Alien4Y(Alien4Y),
+	.Alien4S(Alien4S),
+	.Alien5X(Alien5X), 
+	.Alien5Y(Alien5Y),
+	.Alien5S(Alien5S),
+	.Alien6X(Alien6X), 
+	.Alien6Y(Alien6Y),
+	.Alien6S(Alien6S),
+	.Alien7X(Alien7X), 
+	.Alien7Y(Alien7Y),
+	.Alien7S(Alien7S),
+	.Alien8X(Alien8X), 
+	.Alien8Y(Alien8Y),
+	.Alien8S(Alien8S),
+	.Alien9X(Alien9X), 
+	.Alien9Y(Alien9Y),
+	.Alien9S(Alien9S),
+	.Alien10X(Alien10X), 
+	.Alien10Y(Alien10Y),
+	.Alien10S(Alien10S),
+	.Alien11X(Alien11X), 
+	.Alien11Y(Alien11Y),
+	.Alien11S(Alien11S),
+	.Alien12X(Alien12X), 
+	.Alien12Y(Alien12Y),
+	.Alien12S(Alien12S),
+	.MissileX(MissileX), 
+	.MissileY(MissileY),
+	.MissileS(MissileS),
+	.alien1_hit(alien1_hit), 
+	.alien2_hit(alien2_hit), 
+	.alien3_hit(alien3_hit), 
+	.alien4_hit(alien4_hit), 
+	.alien5_hit(alien5_hit), 
+	.alien6_hit(alien6_hit), 
+	.alien7_hit(alien7_hit), 
+	.alien8_hit(alien8_hit), 
+	.alien9_hit(alien9_hit), 
+	.alien10_hit(alien10_hit), 
+	.alien11_hit(alien11_hit), 
+	.alien12_hit(alien12_hit),
+	.missile_sight(missile_sight),
 	.Red(Red),
 	.Green(Green),
 	.Blue(Blue)
 );
 
+parameter [9:0] alien_1_StX = 200;
+parameter [9:0] alien_2_StX = 250;      
+parameter [9:0] alien_3_StX = 300;   
+parameter [9:0] alien_4_StX = 350;   
+parameter [9:0] alien_5_StX = 400;
+//row 2
+parameter [9:0] alien_6_StX = 150; 
+parameter [9:0] alien_7_StX = 200;
+parameter [9:0] alien_8_StX = 250;
+parameter [9:0] alien_9_StX = 300;
+parameter [9:0] alien_10_StX = 350;
+parameter [9:0] alien_11_StX = 400;
+parameter [9:0] alien_12_StX = 450;	
+
+//alien row_position
+parameter [9:0] alien_row_1 = 50;
+parameter [9:0] alien_row_2 = 100;
+	 
+logic [9:0] MissileX; 
+logic [9:0] MissileY;
+logic [9:0] MissileS;
+
+logic [9:0] Alien1X, Alien1Y, Alien1S;
+logic [9:0] Alien2X,Alien2Y,Alien2S;
+logic [9:0] Alien3X,Alien3Y,Alien3S;
+logic [9:0] Alien4X,Alien4Y,Alien4S;
+logic [9:0] Alien5X,Alien5Y,Alien5S;
+logic [9:0] Alien6X,Alien6Y,Alien6S;
+logic [9:0] Alien7X,Alien7Y,Alien7S;
+logic [9:0] Alien8X,Alien8Y,Alien8S;
+logic [9:0] Alien9X,Alien9Y,Alien9S;
+logic [9:0] Alien10X,Alien10Y,Alien10S;
+logic [9:0] Alien11X,Alien11Y,Alien11S;
+logic [9:0] Alien12X,Alien12Y,Alien12S;
+ 
+logic missile_sight;
+//Declare Player's Missile
+missile player_missile (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.keycode(keycode),
+	.BallX(ballxsig),
+	.Alien1X(Alien1X),
+	.Alien1Y(Alien1Y), 
+	.Alien1S(Alien1S),
+	.Alien2X(Alien2X),
+	.Alien2Y(Alien2Y),
+	.Alien2S(Alien2S),
+	.Alien3X(Alien3X),
+	.Alien3Y(Alien3Y),
+	.Alien3S(Alien3S),
+	.Alien4X(Alien4X),
+	.Alien4Y(Alien4Y),
+	.Alien4S(Alien4S),
+	.Alien5X(Alien5X),
+	.Alien5Y(Alien5Y),
+	.Alien5S(Alien5S),
+	.Alien6X(Alien6X),
+	.Alien6Y(Alien6Y),
+	.Alien6S(Alien6S),
+	.Alien7X(Alien7X),
+	.Alien7Y(Alien7Y),
+	.Alien7S(Alien7S),
+	.Alien8X(Alien8X),
+	.Alien8Y(Alien8Y),
+	.Alien8S(Alien8S),
+	.Alien9X(Alien9X),
+	.Alien9Y(Alien9Y),
+	.Alien9S(Alien9S),
+	.Alien10X(Alien10X),
+	.Alien10Y(Alien10Y),
+	.Alien10S(Alien10S),
+	.Alien11X(Alien11X),
+	.Alien11Y(Alien11Y),
+	.Alien11S(Alien11Y),
+	.Alien12X(Alien12X),
+	.Alien12Y(Alien12Y),
+	.Alien12S(Alien12S),
+	.MissileX(MissileX),
+	.MissileY(MissileY),
+	.MissileS(MissileS),
+	.visible(missile_sight)
+);
+
+
+logic alien1_hit, alien2_hit, alien3_hit, alien4_hit, alien5_hit, alien6_hit, alien7_hit, alien8_hit, alien9_hit, alien10_hit, alien11_hit, alien12_hit;
+
+//Alien 1
+simple_alien alien_1 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_1_StX),
+	.alienStY(alien_row_1),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien1_hit),
+	.AlienX(Alien1X),
+	.AlienY(Alien1Y),
+	.AlienS(Alien1S)
+);
+
+//Alien 2
+simple_alien alien_2 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_2_StX),
+	.alienStY(alien_row_1),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien2_hit),
+	.AlienX(Alien2X),
+	.AlienY(Alien2Y),
+	.AlienS(Alien2S)
+);
+
+//Alien 3
+simple_alien alien_3 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_3_StX),
+	.alienStY(alien_row_1),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien3_hit),
+	.AlienX(Alien3X),
+	.AlienY(Alien3Y),
+	.AlienS(Alien3S)
+);
+
+//Alien 4
+simple_alien alien_4 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_4_StX),
+	.alienStY(alien_row_1),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien4_hit),
+	.AlienX(Alien4X),
+	.AlienY(Alien4Y),
+	.AlienS(Alien4S)
+);
+
+//Alien 5
+simple_alien alien_5 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_5_StX),
+	.alienStY(alien_row_1),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien5_hit),
+	.AlienX(Alien5X),
+	.AlienY(Alien5Y),
+	.AlienS(Alien5S)
+);
+
+//Alien 6
+simple_alien alien_6 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_6_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien6_hit),
+	.AlienX(Alien6X),
+	.AlienY(Alien6Y),
+	.AlienS(Alien6S)
+);
+
+//Alien 7
+simple_alien alien_7 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_7_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien7_hit),
+	.AlienX(Alien7X),
+	.AlienY(Alien7Y),
+	.AlienS(Alien7S)
+);
+
+//Alien 8
+simple_alien alien_8 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_8_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien8_hit),
+	.AlienX(Alien8X),
+	.AlienY(Alien8Y),
+	.AlienS(Alien8S)
+);
+
+//Alien 9
+simple_alien alien_9 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_9_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien9_hit),
+	.AlienX(Alien9X),
+	.AlienY(Alien9Y),
+	.AlienS(Alien9S)
+);
+
+//Alien 10
+simple_alien alien_10 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_10_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien10_hit),
+	.AlienX(Alien10X),
+	.AlienY(Alien10Y),
+	.AlienS(Alien10S)
+);
+
+//Alien 11
+simple_alien alien_11 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_11_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien11_hit),
+	.AlienX(Alien11X),
+	.AlienY(Alien11Y),
+	.AlienS(Alien11S)
+);
+
+//Alien 12
+simple_alien alien_12 (
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS),
+	.alienStX(alien_12_StX),
+	.alienStY(alien_row_2),
+	.PlayerMissileX(MissileX), 
+	.PlayerMissileY(MissileY), 
+	.PlayerMissileS(MissileS),
+	.motion_code(motion_code),
+	.visible(alien12_hit),
+	.AlienX(Alien12X),
+	.AlienY(Alien12Y),
+	.AlienS(Alien12S)
+);	
+
+logic motion_code;
+//used to make ships go side to side
+always_ff @ (posedge Reset_h or posedge VGA_VS )
+begin: Move_Alien_Row
+	if(Reset_h)
+		motion_code <= 0;
+		
+	else	
+	begin
+		if ( (Alien12X + Alien12S) >= 620 )  // Right Most Alien Goes to far to the right
+			motion_code <= 1;
+				
+		else if ((Alien6X - Alien6S) <= 20) //Left Most Alien Goes too far left
+			motion_code <= 0;
+	end
+end
+	 
 endmodule
