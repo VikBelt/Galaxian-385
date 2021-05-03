@@ -12,6 +12,8 @@
 //    University of Illinois ECE Department                              --
 //-------------------------------------------------------------------------
 
+`include "game_params.sv"
+import GAME_PARAMS::*;
 
 module  color_mapper ( 
 	input logic Clk, Reset, frame_clk, 
@@ -46,13 +48,63 @@ module  color_mapper (
    output logic [7:0]  Red, Green, Blue 
 );
     
+	 /////////starfield generation/////////
+	 logic star1_on, star2_on, star3_on, star4_on, star5_on, star6_on, star7_on, star8_on, star9_on, star10_on, star11_on, star12_on; //row one
+	 
+	 int DistStar1X, DistStar1Y;
+	 assign DistStar1X = DrawX - star_OneX;
+	 assign DistStar1Y = DrawY - star_row_one;
+	 
+	 int DistStar2X, DistStar2Y;
+	 assign DistStar2X = DrawX - star2_X;
+	 assign DistStar2Y = DrawY - star_row_one;
+	 
+	 int DistStar3X, DistStar3Y;
+	 assign DistStar3X = DrawX - star3_X;
+	 assign DistStar3Y = DrawY - star_row_one;
+	 
+	 int DistStar4X, DistStar4Y;
+	 assign DistStar4X = DrawX - star4_X;
+	 assign DistStar4Y = DrawY - star_row_one;
+	 
+	 int DistStar5X, DistStar5Y;
+	 assign DistStar5X = DrawX - star5_X;
+	 assign DistStar5Y = DrawY - star_row_one;
+	 
+	 int DistStar6X, DistStar6Y;
+	 assign DistStar6X = DrawX - star6_X;
+	 assign DistStar6Y = DrawY - star_row_one;
+	 
+	 int DistStar7X, DistStar7Y;
+	 assign DistStar7X = DrawX - star7_X;
+	 assign DistStar7Y = DrawY - star_row_one;
+	 
+	 int DistStar8X, DistStar8Y;
+	 assign DistStar8X = DrawX - star8_X;
+	 assign DistStar8Y = DrawY - star_row_one;
+	 
+	 int DistStar9X, DistStar9Y;
+	 assign DistStar9X = DrawX - star9_X;
+	 assign DistStar9Y = DrawY - star_row_one;
+	 
+	 int DistStar10X, DistStar10Y;
+	 assign DistStar10X = DrawX - star10_X;
+	 assign DistStar10Y = DrawY - star_row_one;
+
+	 int DistStar11X, DistStar11Y;
+	 assign DistStar11X = DrawX - star11_X;
+	 assign DistStar11Y = DrawY - star_row_one;
+	 
+	 int DistStar12X, DistStar12Y;
+	 assign DistStar12X = DrawX - star12_X;
+	 assign DistStar12Y = DrawY - star_row_one;
+	 //////////end starfield///////////
+		 
+	 //ball and sprite info
     logic ball_on;
-
-	 //simple alien x positions - move to a seprate file later then use include
-
 	 logic [10:0] sprite_addr;
 	 logic [7:0] sprite_data;
-	 
+
 	 //declaring a new instance of the font_rom module (provided code)
 	 font_rom(
 		.addr(sprite_addr),
@@ -85,8 +137,6 @@ module  color_mapper (
 	);
 	
 	 logic missile_on;
-	
-	
 	 //row one
 	 logic alien1_on, alien2_on, alien3_on, alien4_on, alien5_on, alien6_on, alien7_on, alien8_on, alien9_on, alien10_on, alien11_on, alien12_on;
 
@@ -157,10 +207,430 @@ module  color_mapper (
 			  alien12_on = 1'b0;
 			  missile_on = 1'b0;
 			  sprite_addr = 10'b0;
+			  star1_on = 1'b0;
+			  star2_on = 1'b0;
+			  star3_on = 1'b0;
+			  star4_on = 1'b0;
+			  star5_on = 1'b0;
+			  star6_on = 1'b0;
+			  star7_on = 1'b0;
+			  star8_on = 1'b0;
+			  star9_on = 1'b0;
+			  star10_on = 1'b0;
+			  star11_on = 1'b0;
+			  star12_on = 1'b0;			  
 			  ship_addr = (DistY*40 + DistX);
 			  alien_addr = 19'b0;
 		end
 		
+		//star 1
+	   else if ( ( DistStar1X*DistStar1X + DistStar1Y*DistStar1Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b1;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+		
+		//star 2
+	   else if ( ( DistStar2X*DistStar2X + DistStar2Y*DistStar2Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b1;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 3
+	   else if ( ( DistStar3X*DistStar3X + DistStar3Y*DistStar3Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b1;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 4
+	   else if ( ( DistStar4X*DistStar4X + DistStar4Y*DistStar4Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b1;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar5X*DistStar5X + DistStar5Y*DistStar5Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b1;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar6X*DistStar6X + DistStar6Y*DistStar6Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b1;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar7X*DistStar7X + DistStar7Y*DistStar7Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b1;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar8X*DistStar8X + DistStar8Y*DistStar8Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b1;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar9X*DistStar9X + DistStar9Y*DistStar9Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b1;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar10X*DistStar10X + DistStar10Y*DistStar10Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b1;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar11X*DistStar11X + DistStar11Y*DistStar11Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b1;
+			star12_on = 1'b0;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+
+		//star 2
+	   else if ( ( DistStar12X*DistStar12X + DistStar12Y*DistStar12Y) <= (star_size * star_size) ) 
+      begin
+			ball_on = 1'b0;
+			alien1_on = 1'b0;
+			alien2_on = 1'b0;
+			alien3_on = 1'b0;
+			alien4_on = 1'b0;
+			alien5_on = 1'b0;
+			alien6_on = 1'b0;
+			alien7_on = 1'b0;
+		   alien8_on = 1'b0;
+		   alien9_on = 1'b0;
+		   alien10_on = 1'b0;
+		   alien11_on = 1'b0;
+		   alien12_on = 1'b0;
+			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b1;			
+			ship_addr = 19'b0;
+			alien_addr = 19'b0;		
+			sprite_addr = 10'b0;
+		end
+	
 		else if(DrawX >= Alien1X && DrawX < Alien1X + Alien1S &&
 			DrawY >= Alien1Y && DrawY < Alien1Y + Alien1S)
 		begin
@@ -178,6 +648,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien1Y*25 + DistAlien1X);
 			sprite_addr = 10'b0;
@@ -200,6 +682,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;			
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;			
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien2Y*25 + DistAlien2X);
 			sprite_addr = 10'b0;
@@ -222,6 +716,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien3Y*25 + DistAlien3X);			
 			sprite_addr = 10'b0;
@@ -244,6 +750,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien4Y*25 + DistAlien4X);		
 			sprite_addr = 10'b0;
@@ -266,6 +784,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien5Y*25 + DistAlien5X);		
 			sprite_addr = 10'b0;
@@ -288,6 +818,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien6Y*25 + DistAlien6X);		
 			sprite_addr = 10'b0;
@@ -310,6 +852,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien7Y*25 + DistAlien7X);		
 			sprite_addr = 10'b0;
@@ -333,6 +887,18 @@ module  color_mapper (
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
 			ship_addr = 19'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			alien_addr = (DistAlien8Y*25 + DistAlien8X);		
 			sprite_addr = 10'b0;
 		end	
@@ -355,6 +921,18 @@ module  color_mapper (
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
 			ship_addr = 19'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			alien_addr = (DistAlien9Y*25 + DistAlien9X);		
 			sprite_addr = 10'b0;
 		end
@@ -377,6 +955,18 @@ module  color_mapper (
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
 			ship_addr = 19'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			alien_addr = (DistAlien10Y*25 + DistAlien10X);		
 			sprite_addr = 10'b0;
 		end
@@ -398,6 +988,18 @@ module  color_mapper (
 		   alien11_on = 1'b1;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien11Y*25 + DistAlien11X);		
 			sprite_addr = 10'b0;
@@ -420,6 +1022,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b1;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = (DistAlien12Y*25 + DistAlien12X);		
 			sprite_addr = 10'b0;
@@ -442,6 +1056,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b1;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = 19'b0;		
 			sprite_addr = 10'b0;;
@@ -463,6 +1089,18 @@ module  color_mapper (
 		   alien11_on = 1'b0;
 		   alien12_on = 1'b0;
 			missile_on = 1'b0;
+			star1_on = 1'b0;
+			star2_on = 1'b0;
+			star3_on = 1'b0;
+			star4_on = 1'b0;
+			star5_on = 1'b0;
+			star6_on = 1'b0;
+			star7_on = 1'b0;
+			star8_on = 1'b0;
+			star9_on = 1'b0;
+			star10_on = 1'b0;
+			star11_on = 1'b0;
+			star12_on = 1'b0;
 			ship_addr = 19'b0;
 			alien_addr = 19'b0;		
 			sprite_addr = 10'b0;
@@ -503,7 +1141,8 @@ module  color_mapper (
 		  begin
             Red = dout_1[23:16];
             Green = dout_1[15:8];            
-			   Blue = dout_1[7:0];		  end
+			   Blue = dout_1[7:0];		  
+		  end
 		  
 		  else if((alien5_on == 1'b1) && (alien5_hit == 0))
 		  begin
@@ -566,6 +1205,14 @@ module  color_mapper (
             Red = 8'hff;
             Green = 8'hff;
             Blue = 8'h00;
+		  end
+		  
+		  else if((star1_on == 1'b1) || (star2_on == 1'b1) || (star3_on == 1'b1) || (star4_on == 1'b1) || (star5_on == 1'b1)
+						|| (star6_on == 1'b1) || (star7_on == 1'b1) || (star8_on == 1'b1) || (star9_on == 1'b1) || (star10_on == 1'b1) || (star11_on == 1'b1) || (star12_on == 1'b1))
+		  begin
+            Red = 8'he0;
+            Green = 8'he0;
+            Blue = 8'he0;
 		  end
 		  
         else  
