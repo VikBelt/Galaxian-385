@@ -3,7 +3,7 @@
 module  simple_alien ( 
 	input Reset, frame_clk, 
 	input [9:0] alienStX, alienStY, PlayerMissileX, PlayerMissileY, PlayerMissileS, 
-	input motion_code,
+	input [1:0] motion_code,
 	output visible, output [9:0]  AlienX, AlienY, AlienS
 );
     
@@ -21,7 +21,7 @@ module  simple_alien (
     logic [9:0] Ball_X_Pos, Ball_X_Motion, Ball_Y_Pos, Ball_Y_Motion, Alien_Size;
     assign Alien_Size = 25;  
 	 
-	 logic hit;
+	 logic hit = 0;
     always_ff @ (posedge Reset or posedge frame_clk )
     begin: Move_Ball
         if (Reset)  // Asynchronous Reset
@@ -36,21 +36,40 @@ module  simple_alien (
 		  //collision between aliens and the player missile
         else if ((PlayerMissileX + MissileWidth > Ball_X_Pos) && (PlayerMissileX < Ball_X_Pos + Alien_Size)
 							&& (PlayerMissileY + MissileHeight > Ball_Y_Pos) && (PlayerMissileY < Ball_Y_Pos + Alien_Size))
+		  begin	
 				hit <= 1;
+		  end
 		  
 				   
         else 
         begin 
 				 
-				 if (motion_code == 0)  // Ball is at the Right edge, BOUNCE!
+				 if (motion_code == 2'b00)  // Ball is at the Right edge, BOUNCE!
+				 begin
 					  Ball_X_Motion <= 1;  // 2's complement.
+					  Ball_Y_Motion <= 0;
+				 end
 					  
-				 else if (motion_code == 1)  // Ball is at the Left edge, BOUNCE!
+				 else if (motion_code == 2'b01)  // Ball is at the Left edge, BOUNCE!
+				 begin
 					  Ball_X_Motion <= -1;
+					  Ball_Y_Motion <= 0;
+				 end
 					  
+				 else if (motion_code == 2'b10)  // Ball is at the Left edge, BOUNCE!
+				 begin
+					  Ball_X_Motion <= 1;
+					  Ball_Y_Motion <= 1;
+				 end
+				 
+				 else if (motion_code == 2'b11)  // Ball is at the Left edge, BOUNCE!
+				 begin
+					  Ball_X_Motion <= -1;
+					  Ball_Y_Motion <= 1;
+				 end		 
 				 Ball_Y_Pos <= (Ball_Y_Pos + Ball_Y_Motion);  // Update ball position
 				 Ball_X_Pos <= (Ball_X_Pos + Ball_X_Motion);
-		end  
+		  end  
     end
        
     assign AlienX = Ball_X_Pos;

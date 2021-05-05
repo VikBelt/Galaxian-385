@@ -5,6 +5,8 @@
 //      UIUC ECE Department                                              --
 //-------------------------------------------------------------------------
 
+`include "game_params.sv"
+import GAME_PARAMS::*;
 
 module lab62 (
 
@@ -90,16 +92,16 @@ logic Reset_h, vssig, blank, sync, VGA_Clk;
 	assign ARDUINO_IO[6] = 1'b1;
 	
 	//HEX drivers to convert numbers to HEX output
-	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
-	assign HEX4[7] = 1'b1;
-	
-	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
-	assign HEX3[7] = 1'b1;
-	
-	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
-	assign HEX1[7] = 1'b1;
-	
-	HexDriver hex_driver0 (hex_num_0, HEX0[6:0]);
+//	HexDriver hex_driver4 (hex_num_4, HEX4[6:0]);
+//	assign HEX4[7] = 1'b1;
+//	
+//	HexDriver hex_driver3 (hex_num_3, HEX3[6:0]);
+//	assign HEX3[7] = 1'b1;
+//	
+//	HexDriver hex_driver1 (hex_num_1, HEX1[6:0]);
+//	assign HEX1[7] = 1'b1;
+//	
+	HexDriver hex_driver0 (CT/*hex_num_0*/, HEX0[6:0]);
 	assign HEX0[7] = 1'b1;
 	
 	//fill in the hundreds digit as well as the negative sign
@@ -242,24 +244,6 @@ color_mapper CMAP (
 	.Green(Green),
 	.Blue(Blue)
 );
-
-parameter [9:0] alien_1_StX = 200;
-parameter [9:0] alien_2_StX = 250;      
-parameter [9:0] alien_3_StX = 300;   
-parameter [9:0] alien_4_StX = 350;   
-parameter [9:0] alien_5_StX = 400;
-//row 2
-parameter [9:0] alien_6_StX = 150; 
-parameter [9:0] alien_7_StX = 200;
-parameter [9:0] alien_8_StX = 250;
-parameter [9:0] alien_9_StX = 300;
-parameter [9:0] alien_10_StX = 350;
-parameter [9:0] alien_11_StX = 400;
-parameter [9:0] alien_12_StX = 450;	
-
-//alien row_position
-parameter [9:0] alien_row_1 = 50;
-parameter [9:0] alien_row_2 = 100;
 	 
 logic [9:0] MissileX; 
 logic [9:0] MissileY;
@@ -419,7 +403,7 @@ simple_alien alien_6 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
-	.motion_code(motion_code),
+	.motion_code(motion_code6),
 	.visible(alien6_hit),
 	.AlienX(Alien6X),
 	.AlienY(Alien6Y),
@@ -515,28 +499,83 @@ simple_alien alien_12 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
-	.motion_code(motion_code),
+	.motion_code(motion_code12),
 	.visible(alien12_hit),
 	.AlienX(Alien12X),
 	.AlienY(Alien12Y),
 	.AlienS(Alien12S)
 );	
 
-logic motion_code;
+logic [1:0] alien_control;
+logic [3:0] CT;
+control_unit CONTROL(
+	.Reset(Reset_h),
+	.Clk(VGA_VS),
+	.alien1_hit(alien1_hit),
+	.alien2_hit(alien2_hit),
+	.alien3_hit(alien3_hit),
+	.alien4_hit(alien4_hit),
+	.alien5_hit(alien5_hit),
+	.alien6_hit(alien6_hit),
+	.alien7_hit(alien7_hit),
+	.alien8_hit(alien8_hit),
+	.alien9_hit(alien9_hit),
+   .alien10_hit(alien10_hit),
+	.alien11_hit(alien11_hit),
+	.alien12_hit(alien12_hit),
+	.alien_control(alien_control),
+	.CT(CT)
+);
+
+logic [1:0] motion_code;
+logic [1:0] motion_code6;
+logic [1:0] motion_code12;
 //used to make ships go side to side
 always_ff @ (posedge Reset_h or posedge VGA_VS )
 begin: Move_Alien_Row
+
 	if(Reset_h)
-		motion_code <= 0;
-		
+	begin
+		motion_code <= 2'b00;
+		motion_code6 <= 2'b00;
+		motion_code12 <= 2'b00;
+	end
+	
 	else	
 	begin
-		if ( (Alien12X + Alien12S) >= 620 )  // Right Most Alien Goes to far to the right
-			motion_code <= 1;
+		if(alien_control == 2'b00)
+		begin
+			if ( (Alien12X + Alien12S) >= 620 )  // Right Most Alien Goes to far to the right
+			begin
+				motion_code <= 2'b01;
+				motion_code6 <= 2'b01;
+				motion_code12 <= 2'b01;
+			end
+			
+			else if ((Alien6X - Alien6S) <= 20) //Left Most Alien Goes too far left
+			begin
+				motion_code <= 2'b00;
+				motion_code6 <= 2'b00;
+				motion_code12 <= 2'b00;
+			end
+		end
+		
+		else if(alien_control == 2'b01)
+		begin
+				//bound checking
+				if ( (Alien11X + Alien11S) >= 620 )  // Right Most Alien Goes to far to the right
+					motion_code <= 2'b01;
+		
 				
-		else if ((Alien6X - Alien6S) <= 20) //Left Most Alien Goes too far left
-			motion_code <= 0;
+				else if ((Alien1X - Alien1S) <= 20) //Left Most Alien Goes too far left
+					motion_code <= 2'b00;
+			
+			   motion_code6 <= 2'b10;
+				motion_code12 <= 2'b11;
+		end
+		
 	end
 end
+
 	 
 endmodule
