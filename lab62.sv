@@ -227,6 +227,42 @@ color_mapper CMAP (
 	.MissileX(MissileX), 
 	.MissileY(MissileY),
 	.MissileS(MissileS),
+	.Alien1MissileX(Alien1MissileX), 
+	.Alien1MissileY(Alien1MissileY), 
+	.Alien1MissileS(Alien1MissileS),
+	.Alien2MissileX(Alien2MissileX), 
+	.Alien2MissileY(Alien2MissileY),
+	.Alien2MissileS(Alien2MissileS),
+   .Alien3MissileX(Alien3MissileX), 
+	.Alien3MissileY(Alien3MissileY),
+	.Alien3MissileS(Alien3MissileS),
+	.Alien4MissileX(Alien4MissileX), 
+	.Alien4MissileY(Alien4MissileY),
+	.Alien4MissileS(Alien4MissileS),
+	.Alien5MissileX(Alien5MissileX), 
+	.Alien5MissileY(Alien5MissileY),
+	.Alien5MissileS(Alien5MissileS),
+	.Alien6MissileX(Alien6MissileX), 
+	.Alien6MissileY(Alien6MissileY),
+	.Alien6MissileS(Alien6MissileS),
+	.Alien7MissileX(Alien7MissileX), 
+	.Alien7MissileY(Alien7MissileY),
+	.Alien7MissileS(Alien7MissileS),
+	.Alien8MissileX(Alien8MissileX), 
+	.Alien8MissileY(Alien8MissileY),
+	.Alien8MissileS(Alien8MissileS),
+	.Alien9MissileX(Alien9MissileX), 
+	.Alien9MissileY(Alien9MissileY),
+	.Alien9MissileS(Alien9MissileS),
+	.Alien10MissileX(Alien10MissileX), 
+	.Alien10MissileY(Alien10MissileY),
+	.Alien10MissileS(Alien10MissileS),
+	.Alien11MissileX(Alien11MissileX), 
+	.Alien11MissileY(Alien11MissileY),
+	.Alien11MissileS(Alien11MissileS),
+	.Alien12MissileX(Alien12MissileX), 
+	.Alien12MissileY(Alien12MissileY),
+	.Alien12MissileS(Alien12MissileS),
 	.alien1_hit(alien1_hit), 
 	.alien2_hit(alien2_hit), 
 	.alien3_hit(alien3_hit), 
@@ -240,6 +276,19 @@ color_mapper CMAP (
 	.alien11_hit(alien11_hit), 
 	.alien12_hit(alien12_hit),
 	.missile_sight(missile_sight),
+	.am1_sight(am1_sight),
+	.am2_sight(am2_sight),
+	.am3_sight(am3_sight),
+	.am4_sight(am4_sight),
+	.am5_sight(am5_sight),
+	.am6_sight(am6_sight),
+	.am7_sight(am7_sight),
+	.am8_sight(am8_sight),
+	.am9_sight(am9_sight),
+	.am10_sight(am10_sight),
+	.am11_sight(am11_sight),
+	.am12_sight(am12_sight),
+	.color_switch(color_switch),
 	.Red(Red),
 	.Green(Green),
 	.Blue(Blue)
@@ -311,6 +360,7 @@ missile player_missile (
 	.visible(missile_sight)
 );
 
+///////////////// ALIENS //////////////////
 
 logic alien1_hit, alien2_hit, alien3_hit, alien4_hit, alien5_hit, alien6_hit, alien7_hit, alien8_hit, alien9_hit, alien10_hit, alien11_hit, alien12_hit;
 
@@ -323,6 +373,7 @@ simple_alien alien_1 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
+	.PlayerShipX(ballxsig),
 	.motion_code(motion_code),
 	.visible(alien1_hit),
 	.AlienX(Alien1X),
@@ -339,6 +390,7 @@ simple_alien alien_2 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
+	.PlayerShipX(ballxsig),
 	.motion_code(motion_code),
 	.visible(alien2_hit),
 	.AlienX(Alien2X),
@@ -355,6 +407,7 @@ simple_alien alien_3 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
+	.PlayerShipX(ballxsig),
 	.motion_code(motion_code),
 	.visible(alien3_hit),
 	.AlienX(Alien3X),
@@ -371,6 +424,7 @@ simple_alien alien_4 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
+	.PlayerShipX(ballxsig),
 	.motion_code(motion_code),
 	.visible(alien4_hit),
 	.AlienX(Alien4X),
@@ -387,6 +441,7 @@ simple_alien alien_5 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
+	.PlayerShipX(ballxsig),
 	.motion_code(motion_code),
 	.visible(alien5_hit),
 	.AlienX(Alien5X),
@@ -404,6 +459,7 @@ simple_alien alien_6 (
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
 	.motion_code(motion_code6),
+	.PlayerShipX(ballxsig),
 	.visible(alien6_hit),
 	.AlienX(Alien6X),
 	.AlienY(Alien6Y),
@@ -419,7 +475,8 @@ simple_alien alien_7 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
-	.motion_code(motion_code),
+	.motion_code(motion_code7),
+	.PlayerShipX(ballxsig),
 	.visible(alien7_hit),
 	.AlienX(Alien7X),
 	.AlienY(Alien7Y),
@@ -436,6 +493,7 @@ simple_alien alien_8 (
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
 	.motion_code(motion_code),
+	.PlayerShipX(ballxsig),
 	.visible(alien8_hit),
 	.AlienX(Alien8X),
 	.AlienY(Alien8Y),
@@ -452,6 +510,7 @@ simple_alien alien_9 (
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
 	.motion_code(motion_code),
+	.PlayerShipX(ballxsig),
 	.visible(alien9_hit),
 	.AlienX(Alien9X),
 	.AlienY(Alien9Y),
@@ -468,6 +527,7 @@ simple_alien alien_10 (
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
 	.motion_code(motion_code),
+	.PlayerShipX(ballxsig),
 	.visible(alien10_hit),
 	.AlienX(Alien10X),
 	.AlienY(Alien10Y),
@@ -483,7 +543,8 @@ simple_alien alien_11 (
 	.PlayerMissileX(MissileX), 
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
-	.motion_code(motion_code),
+	.motion_code(motion_code11),
+	.PlayerShipX(ballxsig),
 	.visible(alien11_hit),
 	.AlienX(Alien11X),
 	.AlienY(Alien11Y),
@@ -500,14 +561,240 @@ simple_alien alien_12 (
 	.PlayerMissileY(MissileY), 
 	.PlayerMissileS(MissileS),
 	.motion_code(motion_code12),
+	.PlayerShipX(ballxsig),
 	.visible(alien12_hit),
 	.AlienX(Alien12X),
 	.AlienY(Alien12Y),
 	.AlienS(Alien12S)
 );	
 
+//////////////// ALIEN MISSILES ///////////////
+
+logic am1_shoot, am2_shoot, am3_shoot, am4_shoot, am5_shoot, am6_shoot, am7_shoot, am8_shoot, am9_shoot, am10_shoot, am11_shoot, am12_shoot;
+logic am1_sight, am2_sight, am3_sight, am4_sight, am5_sight, am6_sight, am7_sight, am8_sight, am9_sight, am10_sight, am11_sight, am12_sight;
+
+logic [9:0] Alien1MissileX, Alien1MissileY, Alien1MissileS;
+logic [9:0] Alien2MissileX,Alien2MissileY,Alien2MissileS;
+logic [9:0] Alien3MissileX,Alien3MissileY,Alien3MissileS;
+logic [9:0] Alien4MissileX,Alien4MissileY,Alien4MissileS;
+logic [9:0] Alien5MissileX,Alien5MissileY,Alien5MissileS;
+logic [9:0] Alien6MissileX,Alien6MissileY,Alien6MissileS;
+logic [9:0] Alien7MissileX,Alien7MissileY,Alien7MissileS;
+logic [9:0] Alien8MissileX,Alien8MissileY,Alien8MissileS;
+logic [9:0] Alien9MissileX,Alien9MissileY,Alien9MissileS;
+logic [9:0] Alien10MissileX,Alien10MissileY,Alien10MissileS;
+logic [9:0] Alien11MissileX,Alien11MissileY,Alien11MissileS;
+logic [9:0] Alien12MissileX,Alien12MissileY,Alien12MissileS;
+
+//Alien Missile 1
+alien_missile AM1( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am1_shoot),
+	.AlienX(Alien1X), 
+	.AlienY(Alien1Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien1MissileX), 
+	.AlienMissileY(Alien1MissileY), 
+	.AlienMissileS(Alien1MissileS), 
+	.visible(am1_sight) 
+);
+
+//Alien Missile 2
+alien_missile AM2( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am2_shoot),
+	.AlienX(Alien2X), 
+	.AlienY(Alien2Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien2MissileX), 
+	.AlienMissileY(Alien2MissileY), 
+	.AlienMissileS(Alien2MissileS), 
+	.visible(am2_sight) 
+);
+
+//Alien Missile 3
+alien_missile AM3( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am3_shoot),
+	.AlienX(Alien3X), 
+	.AlienY(Alien3Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien3MissileX), 
+	.AlienMissileY(Alien3MissileY), 
+	.AlienMissileS(Alien3MissileS), 
+	.visible(am3_sight) 
+);
+
+//Alien Missile 4
+alien_missile AM4( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am4_shoot),
+	.AlienX(Alien4X), 
+	.AlienY(Alien4Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien4MissileX), 
+	.AlienMissileY(Alien4MissileY), 
+	.AlienMissileS(Alien4MissileS), 
+	.visible(am4_sight) 
+);
+
+//Alien Missile 5
+alien_missile AM5( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am5_shoot),
+	.AlienX(Alien5X), 
+	.AlienY(Alien5Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien5MissileX), 
+	.AlienMissileY(Alien5MissileY), 
+	.AlienMissileS(Alien5MissileS), 
+	.visible(am5_sight) 
+);
+
+//Alien Missile 6
+alien_missile AM6( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am6_shoot),
+	.AlienX(Alien6X), 
+	.AlienY(Alien6Y),
+	.motion_code(motion_code6),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien6MissileX), 
+	.AlienMissileY(Alien6MissileY), 
+	.AlienMissileS(Alien6MissileS), 
+	.visible(am6_sight) 
+);
+
+//Alien Missile 7
+alien_missile AM7( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am7_shoot),
+	.AlienX(Alien7X), 
+	.AlienY(Alien7Y),
+	.motion_code(motion_code7),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien7MissileX), 
+	.AlienMissileY(Alien7MissileY), 
+	.AlienMissileS(Alien7MissileS), 
+	.visible(am7_sight) 
+);
+
+//Alien Missile 8
+alien_missile AM8( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am8_shoot),
+	.AlienX(Alien8X), 
+	.AlienY(Alien8Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien8MissileX), 
+	.AlienMissileY(Alien8MissileY), 
+	.AlienMissileS(Alien8MissileS), 
+	.visible(am8_sight) 
+);
+
+//Alien Missile 9
+alien_missile AM9( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am9_shoot),
+	.AlienX(Alien9X), 
+	.AlienY(Alien9Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien9MissileX), 
+	.AlienMissileY(Alien9MissileY), 
+	.AlienMissileS(Alien9MissileS), 
+	.visible(am9_sight) 
+);
+
+//Alien Missile 10
+alien_missile AM10( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am10_shoot),
+	.AlienX(Alien10X), 
+	.AlienY(Alien10Y),
+	.motion_code(motion_code),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien10MissileX), 
+	.AlienMissileY(Alien10MissileY), 
+	.AlienMissileS(Alien10MissileS), 
+	.visible(am10_sight) 
+);
+
+//Alien Missile 11
+alien_missile AM11( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am11_shoot),
+	.AlienX(Alien11X), 
+	.AlienY(Alien11Y),
+	.motion_code(motion_code11),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien11MissileX), 
+	.AlienMissileY(Alien11MissileY), 
+	.AlienMissileS(Alien11MissileS), 
+	.visible(am11_sight) 
+);
+
+//Alien Missile 12
+alien_missile AM12( 
+	.Reset(Reset_h),
+	.frame_clk(VGA_VS), 
+	.shoot_missile(am12_shoot),
+	.AlienX(Alien12X), 
+	.AlienY(Alien12Y),
+	.motion_code(motion_code12),
+	.PlayerX(ballxsig),
+	.PlayerY(ballysig),
+	.PlayerS(ballsizesig),
+   .AlienMissileX(Alien12MissileX), 
+	.AlienMissileY(Alien12MissileY), 
+	.AlienMissileS(Alien12MissileS), 
+	.visible(am12_sight) 
+);
+
+/////////////// CONTROL UNIT ////////////////
 logic [1:0] alien_control;
 logic [3:0] CT;
+logic color_switch;
+
 control_unit CONTROL(
 	.Reset(Reset_h),
 	.Clk(VGA_VS),
@@ -523,12 +810,25 @@ control_unit CONTROL(
    .alien10_hit(alien10_hit),
 	.alien11_hit(alien11_hit),
 	.alien12_hit(alien12_hit),
+	.color_switch(color_switch),
 	.alien_control(alien_control),
 	.CT(CT)
 );
 
+
+/////////////////////////// GAME LOGIC ///////////////////////////
+//                                                              //
+//                                                              //
+//                                                              //
+//                                                              //
+//                                                              //
+//                                                              //
+//////////////////////////////////////////////////////////////////
+
 logic [1:0] motion_code;
 logic [1:0] motion_code6;
+logic [1:0] motion_code7;
+logic [1:0] motion_code11;
 logic [1:0] motion_code12;
 //used to make ships go side to side
 always_ff @ (posedge Reset_h or posedge VGA_VS )
@@ -538,17 +838,35 @@ begin: Move_Alien_Row
 	begin
 		motion_code <= 2'b00;
 		motion_code6 <= 2'b00;
+		motion_code7 <= 2'b00;
+		motion_code11<= 2'b00;
 		motion_code12 <= 2'b00;
+		//reset the shot signals
+		am1_shoot <= 1'b0;
+		am2_shoot <= 1'b0;
+		am3_shoot <= 1'b0;
+		am4_shoot <= 1'b0;
+		am5_shoot <= 1'b0;
+		am6_shoot <= 1'b0;
+		am7_shoot <= 1'b0;
+		am8_shoot <= 1'b0;
+		am9_shoot <= 1'b0;
+		am10_shoot <= 1'b0;
+		am11_shoot <= 1'b0;
+		am12_shoot <= 1'b0;
 	end
 	
 	else	
 	begin
+		// MOTION IN START AND EASY STATES - and END TOO
 		if(alien_control == 2'b00)
 		begin
 			if ( (Alien12X + Alien12S) >= 620 )  // Right Most Alien Goes to far to the right
 			begin
 				motion_code <= 2'b01;
 				motion_code6 <= 2'b01;
+				motion_code7 <= 2'b01;
+				motion_code11<= 2'b01;
 				motion_code12 <= 2'b01;
 			end
 			
@@ -556,24 +874,71 @@ begin: Move_Alien_Row
 			begin
 				motion_code <= 2'b00;
 				motion_code6 <= 2'b00;
+				motion_code7 <= 2'b00;
+				motion_code11<= 2'b00;
 				motion_code12 <= 2'b00;
 			end
 		end
 		
+		//MOTION IN HARD STATE Only Two can be hit here
 		else if(alien_control == 2'b01)
 		begin
-				//bound checking
-				if ( (Alien11X + Alien11S) >= 620 )  // Right Most Alien Goes to far to the right
-					motion_code <= 2'b01;
-		
 				
-				else if ((Alien1X - Alien1S) <= 20) //Left Most Alien Goes too far left
+				//bound checking - Rightmost Bound
+				if ( ((Alien12X + Alien12S) >= 620) || ((Alien11X + Alien11S) >= 620) || ((Alien10X + Alien10S) >= 620) || ((Alien9X + Alien9S) >= 620)
+							|| ((Alien5X + Alien5S) >= 620) || ((Alien4X + Alien4S) >= 620) || ((Alien3X + Alien3S) >= 620) ) 
+				begin
+					motion_code <= 2'b01;
+					motion_code6 <= 2'b01;
+					motion_code7 <= 2'b01;
+					motion_code11<= 2'b01;
+					motion_code12 <= 2'b01;
+				end
+				//Leftmost Bount
+				else if ( ((Alien1X ) <= 20) || ((Alien2X) <= 20) || ((Alien3X) <= 20) || ((Alien4X ) <= 20) || 
+								((Alien5X) <= 20) || ((Alien6X) <= 20) || ((Alien7X) <= 20) || ((Alien8X) <= 20) || ((Alien9X) <= 20) || 
+								((Alien10X) <= 20) || ((Alien11X) <= 20) || ((Alien12X) <= 20) )
+				begin
 					motion_code <= 2'b00;
-			
-			   motion_code6 <= 2'b10;
-				motion_code12 <= 2'b11;
+					motion_code6 <= 2'b00;
+					motion_code7 <= 2'b00;
+					motion_code11<= 2'b00;
+					motion_code12 <= 2'b00;
+				end
+				
+				//If 6 and 12 Hit already
+				if(~alien6_hit && ~alien12_hit)
+				begin
+					motion_code6 <= 2'b10;
+					am6_shoot <= 1'b1;
+					motion_code12 <= 2'b10;
+					am12_shoot <= 1'b1;
+				end
+				
+				else if(alien6_hit && ~alien12_hit)
+				begin
+					motion_code7 <= 2'b10;
+					am7_shoot <= 1'b1;
+					motion_code12 <= 2'b10;
+					am12_shoot <= 1'b1;
+				end
+				
+				else if(~alien6_hit && alien12_hit)
+				begin
+					motion_code6 <= 2'b10;
+					am6_shoot <= 1'b1;
+					motion_code11 <= 2'b10;
+					am11_shoot <= 1'b1;
+				end
+				
+				else if(alien6_hit && alien12_hit)
+				begin
+					motion_code7 <= 2'b10;
+					am7_shoot <= 1'b1;
+					motion_code11 <= 2'b10;
+					am11_shoot <= 1'b1;
+				end	
 		end
-		
 	end
 end
 
